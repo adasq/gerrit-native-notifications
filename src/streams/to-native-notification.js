@@ -18,7 +18,7 @@ module.exports = function(){
         const nativeNotification = parseEventToNativeNotification(event);
         notifier.notify(nativeNotification);
 
-        cb(false, JSON.stringify(nativeNotification));
+        cb(false, JSON.stringify(event));
     });
 };
 

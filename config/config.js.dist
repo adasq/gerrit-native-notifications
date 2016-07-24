@@ -1,6 +1,7 @@
 module.exports = {
     gerrit: {
-        host: 'gerrit.host@your.domain',
+        host: 'gerrit.yourdomain.com',
+        username: 'username',
         port: 29418
     },
     me: 'your.mail@google.com',
