@@ -1,2 +1,4 @@
 config/config.js
 node_modules
+stream
+npm-debug.log
