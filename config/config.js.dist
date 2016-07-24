@@ -1,0 +1,15 @@
+module.exports = {
+    gerrit: {
+        host: 'gerrit.host@your.domain',
+        port: 29418
+    },
+    me: 'your.mail@google.com',
+    team: [
+        'team.member1@google.com',
+        'team.member2@google.com',
+        'team.member3@google.com'
+    ],
+    projects: [
+        'project name'
+    ]
+};
