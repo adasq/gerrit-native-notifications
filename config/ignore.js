@@ -25,5 +25,4 @@ module.exports = [
      (event) => (event.type === 'reviewer-added' && h.isTeamMember(event.change.owner) ),
 
      (event) => (event.type === 'topic-changed')
-
 ];

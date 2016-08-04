@@ -1,6 +1,9 @@
 const config = require('../config/config');
 const _ = require('underscore');
 
+const JENKINS_FAILED_BUILD_REGEXP = config.jenkins+'(.+)\\s:\\sFAILURE';
+
+
 function isTeamMember(account){
     return config.team.indexOf(account.email) > -1;
 }
@@ -30,7 +33,11 @@ function isNotMe(account){
 }
 //----------------------------------
 function parseComment(comment){
-    return (comment || '').replace(/\\n/, '').trim();
+    comment = (comment || '');
+    comment = comment.replace(/\n+/g, ' ');
+    comment = comment.replace(/Patch Set \d+:/, '');
+    comment = comment.trim();
+    return comment;
 }
 
 function formatApprovals(approvals){
@@ -44,6 +51,15 @@ function formatApprovals(approvals){
     }
 }
 
+function generateFailedBuildJenkinsUrl(comment){
+    if(comment && config.jenkins){
+        let result = comment.match(new RegExp(JENKINS_FAILED_BUILD_REGEXP));
+        if(result && result[1]){
+            return [config.jenkins, result[1]].join('');
+        }
+    }
+}
+
 module.exports = {
     isTeamMember,
     isNotTeamMember,
@@ -54,5 +70,7 @@ module.exports = {
     isNotMe,
 
     parseComment,
-    formatApprovals
+    formatApprovals,
+
+    generateFailedBuildJenkinsUrl
 };

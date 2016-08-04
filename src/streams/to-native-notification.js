@@ -6,19 +6,24 @@ const notifier = require('node-notifier');
 const open = require('open');
 const path = require('path');
  
-const GERRIT_ICON_PATH = '../../chrome-gerrit-notifications-extension/icons/128.png';
+const ICON_FILENAME = 'smile.png';
 
 notifier.on('click', function (notifierObject, options) {
-    open(options.url);
+    if(options.url){
+        open(options.url);
+    }
 });
 
 module.exports = function(){
     return through2.obj(function(event, enc, cb){
-
+        console.log('to-native-event', event.eventCreatedOn, event.type);
         const nativeNotification = parseEventToNativeNotification(event);
-        notifier.notify(nativeNotification);
-
-        cb(false, JSON.stringify(event));
+        if(nativeNotification){
+            notifier.notify(nativeNotification);
+            cb(false, JSON.stringify(event));
+        }else{
+            cb(false, '');
+        }
     });
 };
 
@@ -30,6 +35,10 @@ function parseEventToNativeNotification(event){
 
     let eventActivityDescription = getEventDescription(event);
 
+    if(!eventActivityDescription){
+        return null;
+    }
+
     let text = di.inject(eventActivityDescription.text, event)();
     let url = di.inject(eventActivityDescription.onClick, event)();
 
@@ -38,13 +47,15 @@ function parseEventToNativeNotification(event){
     rows = _.compact(rows);
 
     let title = rows[0];
-    let message = rows.splice(1).join('\n');
+    let subtitle = rows[1];
+    let message = rows.splice(2).join('\n');
 
     return {
         url,
         title,
+        subtitle,
         message,
-        icon: path.join(__dirname, GERRIT_ICON_PATH),
+        icon: path.join(__dirname, '../../images/', ICON_FILENAME),
         wait: true
     };
 }

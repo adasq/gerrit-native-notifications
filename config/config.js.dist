@@ -1,4 +1,7 @@
 module.exports = {
+    keepaliveInterval: 1000,
+    reconnectionTimeout: 5000,
+    jenkins: ':D',
     gerrit: {
         host: 'gerrit.yourdomain.com',
         username: 'username',
@@ -10,6 +13,7 @@ module.exports = {
         'team.member2@google.com',
         'team.member3@google.com'
     ],
+    privateKey: '/Users/me/.ssh/id_rsa',
     projects: [
         'project name'
     ]

@@ -4,34 +4,38 @@ function onClick(change){
   return change.url;  
 }
 
+function onClickCommentAdded(comment, change){
+    let failedBuildJenkinsUrl = helpers.generateFailedBuildJenkinsUrl(comment);
+    return failedBuildJenkinsUrl || change.url;
+}
+
 module.exports =  {
     'patchset-created': {
-        onClick: onClick,
+        onClick,
         text: (uploader, change, patchSet) => `
             ${change.subject}
-            ${patchSet.author.name}
-            created new patchSet ${patchSet.number}
-            ${change.branch}
+            New patchSet ${patchSet.number}
+            ${patchSet.author.name} - ${change.branch}
         `
     },
     'change-merged': {
-        onClick: onClick,
+        onClick,
         text: (submitter, change) => `
             ${change.subject}
-            ${submitter.name} merged change
-            ${change.branch}
+            Change merged
+            ${submitter.name} - ${change.branch}
         `
     },
     'comment-added': {
-        onClick: onClick,
-        text: (author, approvals, change, comment) => `
+        onClick: onClickCommentAdded,
+        text: (author, approvals, change, comment, patchSet) => `
             ${change.subject}
-            ${author.name}: ${approvals ? helpers.formatApprovals(approvals) : helpers.parseComment(comment)}
-            ${change.branch}
+            ${helpers.parseComment(comment)}
+            ${author.name} - patchSet ${patchSet.number} - ${change.branch}
         `
     },
     'reviewer-added': {
-        onClick: onClick,
+        onClick,
         text: (reviewer, change) => `
             ${change.subject}
             You have been added as reviewer
