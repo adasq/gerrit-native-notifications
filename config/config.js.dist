@@ -1,19 +1,19 @@
 module.exports = {
-    keepaliveInterval: 1000,
-    reconnectionTimeout: 5000,
-    jenkins: ':D',
+    keepaliveInterval: 1000, // SSH keepalive interval [ms]
+    reconnectionTimeout: 5000, // Specify timeout, which will force app to reconnect over SSH [ms]
+    jenkins: 'http://jenkins.yourdomain.com', //your jenkins URL (optional)
     gerrit: {
         host: 'gerrit.yourdomain.com',
-        username: 'username',
+        username: 'your.gerrit.username',
         port: 29418
-    },
-    me: 'your.mail@google.com',
+    }, //gerrit server configuration
+    me: 'your.name@google.com', //your gerrit email
     team: [
         'team.member1@google.com',
         'team.member2@google.com',
         'team.member3@google.com'
-    ],
-    privateKey: '/Users/me/.ssh/id_rsa',
+    ], //your team member's gerrit email list
+    privateKey: '/Users/me/.ssh/id_rsa', //path to your privateKey (required by SSH to set connection)
     projects: [
         'project name'
     ]
