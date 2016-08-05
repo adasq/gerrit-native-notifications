@@ -5,7 +5,7 @@ module.exports = function(){
     return through2.obj(function(event, enc, cb){
     		console.log('ignore-gerrit-event');
             if( ignore.isIgnored(event) ){
-            	console.log('ignored...');
+            	console.log('the event has been ignored');
                 cb(false);
             }else{
                 cb(false, event);

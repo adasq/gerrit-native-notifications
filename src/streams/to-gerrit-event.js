@@ -2,29 +2,25 @@ var through2 = require('through2');
 var _ = require('underscore');
 var parseJson = require('parse-json');
 
+function getEventsListByChunk(chunk){
+    return _.compact(chunk.toString().split('\n'));
+}
+
 module.exports = function streamToObjectFn(){
     return through2.obj(function(chunk, enc, cb){
-            
-            var that = this, json = null, error = false, events;
-            try{
-                events = _.compact(chunk.toString().split('\n'));
-
-                console.log('to gerrit event');
-                events.forEach( (event) => {
-                    if(event){
+            var that = this, json = null;
+            console.log('to gerrit event');
+            getEventsListByChunk(chunk).forEach( (event) => {
+                if(event){
+                    try{
                         json = parseJson(event);
-                        try{
-                            that.push(json);
-                        }catch(ex){
-                            console.log('ERR3', ex);
-                            console.log(json);
-                        }
+                        that.push(json);
+                    }catch(ex){
+                        console.log('to-gerrit-event exception', ex);
+                        console.log(json);
                     }
-                });
-                cb();
-            }catch(ex){
-                console.log('ERR', ex);
-            }
-            
+                }
+            });
+            cb();
     });
 }

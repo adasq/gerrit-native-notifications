@@ -5,7 +5,7 @@
   "description": "See gerrit notifications on your OS",
   "scripts": {
     "start": "./node_modules/babel-cli/bin/babel-node.js main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/babel-cli/bin/babel-node.js test.js"
   },
   "author": "Adam Płócieniak",
   "license": "ISC",

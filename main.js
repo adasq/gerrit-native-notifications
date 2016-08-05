@@ -13,4 +13,3 @@ function initialize(){
   .pipe(TO_NATIVE_NOTIFICATION, { end: false })
   .pipe(TO_FILE, { end: false });
 }
-

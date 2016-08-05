@@ -17,7 +17,7 @@ notifier.on('click', function (notifierObject, options) {
 module.exports = function(){
     return through2.obj(function(event, enc, cb){
         console.log('to-native-event', new Date(1000 * event.eventCreatedOn), event.type);
-        const nativeNotification = parseEventToNativeNotification(event);
+        const nativeNotification = getNotificationObjectByEvent(event);
         if(nativeNotification){
             notifier.notify(nativeNotification);
             cb(false, JSON.stringify(event));
@@ -31,8 +31,7 @@ function getEventDescription(event){
     return eventTypes[ event.type ];
 }
 
-function parseEventToNativeNotification(event){
-
+function getNotificationObjectByEvent(event){
     let eventActivityDescription = getEventDescription(event);
 
     if(!eventActivityDescription){
@@ -42,9 +41,7 @@ function parseEventToNativeNotification(event){
     let text = di.inject(eventActivityDescription.text, event)();
     let url = di.inject(eventActivityDescription.onClick, event)();
 
-    let rows = text.split('\n');
-    rows = rows.map((row) => row.trim());
-    rows = _.compact(rows);
+    let rows = _.compact(text.split('\n').map((row) => row.trim()));
 
     let title = rows[0];
     let subtitle = rows[1];
@@ -59,4 +56,3 @@ function parseEventToNativeNotification(event){
         wait: true
     };
 }
-
