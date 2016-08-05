@@ -1,6 +1,6 @@
 # gerrit-native-notifications
 
-It lets you see gerrit messages as your native OS notifications.
+It lets you see gerrit events as a native OS notifications.
 
 ## How it works?
 
@@ -23,9 +23,9 @@ $ npm install
 
 ## Configuration
 
-The `config` dir is a place where you can configure the application
+The `config` directory is a place where you can configure the application.
 
-- Fill the `config.js` file with your configuration. You can copy template file update it.
+- Fill the `config.js` file with your configuration. You can copy template file and update it.
 
 ```
 $ cp config/config.js.dist config/config.js
@@ -46,7 +46,7 @@ Consider following entry:
 ```
 
 We have notification description for `patchset-created` action. 
-Using `text` we are able to format our notification text. It's simple function, which uses Dependency Injection to pass event related properties for futher formatting. Here we have `change` and `patchSet` which are `patchset-created` event specific fields, but you can pass more fields here. For full parameter list see ['patchset creaded' event documentation](https://gerrit-review.googlesource.com/Documentation/cmd-stream-events.html#_patchset_created)
+Using `text` we are able to format our notification text. It's simple function, which uses Dependency Injection to pass event related properties for futher formatting. Here we have `change` and `patchSet` which are `patchset-created` event specific fields, but you can pass more fields here. For full parameter list see ['patchset created' event documentation](https://gerrit-review.googlesource.com/Documentation/cmd-stream-events.html#_patchset_created)
 
 - `ignore.js` lets you decide, which events are important for you and will be displayed. The file contains list of functions. When we receive event, we will call each function. If any returns `true`, the passed event will be ignored and will not be displayed as notification. Consider function:
 
