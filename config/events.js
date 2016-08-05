@@ -1,18 +1,9 @@
 const helpers = require('../src/helpers.js');
 
-function onClick(change){
-  return change.url;  
-}
-
-function onClickCommentAdded(comment, change){
-    let failedBuildJenkinsUrl = helpers.generateFailedBuildJenkinsUrl(comment);
-    return failedBuildJenkinsUrl || change.url;
-}
-
 module.exports =  {
     'patchset-created': {
         onClick,
-        text: (uploader, change, patchSet) => `
+        text: (change, patchSet) => `
             ${change.subject}
             New patchSet ${patchSet.number}
             ${patchSet.author.name} - ${change.branch}
@@ -28,7 +19,7 @@ module.exports =  {
     },
     'comment-added': {
         onClick: onClickCommentAdded,
-        text: (author, approvals, change, comment, patchSet) => `
+        text: (author, change, comment, patchSet) => `
             ${change.subject}
             ${helpers.parseComment(comment)}
             ${author.name} - patchSet ${patchSet.number} - ${change.branch}
@@ -36,10 +27,19 @@ module.exports =  {
     },
     'reviewer-added': {
         onClick,
-        text: (reviewer, change) => `
+        text: (change) => `
             ${change.subject}
             You have been added as reviewer
             ${change.branch}
         `        
     }
 };
+
+function onClick(change){
+  return change.url;  
+}
+
+function onClickCommentAdded(comment, change){
+    let failedBuildJenkinsUrl = helpers.generateFailedBuildJenkinsUrl(comment);
+    return failedBuildJenkinsUrl || change.url;
+}

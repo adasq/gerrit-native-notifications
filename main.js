@@ -1,8 +1,8 @@
-var GERRIT_STREAM = require('./src/streams/ssh-stream');
-var TO_FILE = require('./src/streams/to-file')();
-var TO_GERRIT_EVENT = require('./src/streams/to-gerrit-event')();
-var IGNORE_GERRIT_EVENT = require('./src/streams/ignore-gerrit-event')();
-var TO_NATIVE_NOTIFICATION = require('./src/streams/to-native-notification')();
+const GERRIT_STREAM = require('./src/streams/ssh-stream');
+const TO_FILE = require('./src/streams/to-file')();
+const TO_GERRIT_EVENT = require('./src/streams/to-gerrit-event')();
+const IGNORE_GERRIT_EVENT = require('./src/streams/ignore-gerrit-event')();
+const TO_NATIVE_NOTIFICATION = require('./src/streams/to-native-notification')();
 
 initialize();
 
