@@ -1,4 +1,4 @@
-var config = require('../config/config');
+var config = require('../../config/config');
 var fs = require('fs');
 var Client = require('ssh2').Client;
 

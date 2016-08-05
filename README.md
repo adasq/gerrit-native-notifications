@@ -6,7 +6,6 @@ It lets you see gerrit messages as your native OS notifications.
 
 ```
 $ npm install
-$ npm install --g babl-cli
 ```
 
 ## Set configuration
@@ -21,5 +20,5 @@ $ vi config/config.js
 ## Run
 
 ```
-$ babel-node main.js
+$ npm start
 ```

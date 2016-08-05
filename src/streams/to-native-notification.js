@@ -16,13 +16,13 @@ notifier.on('click', function (notifierObject, options) {
 
 module.exports = function(){
     return through2.obj(function(event, enc, cb){
-        console.log('to-native-event', event.eventCreatedOn, event.type);
+        console.log('to-native-event', new Date(1000 * event.eventCreatedOn), event.type);
         const nativeNotification = parseEventToNativeNotification(event);
         if(nativeNotification){
             notifier.notify(nativeNotification);
             cb(false, JSON.stringify(event));
         }else{
-            cb(false, '');
+            cb(false);
         }
     });
 };

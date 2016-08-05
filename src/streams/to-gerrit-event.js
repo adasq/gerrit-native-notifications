@@ -9,7 +9,7 @@ module.exports = function streamToObjectFn(){
             try{
                 events = _.compact(chunk.toString().split('\n'));
 
-                console.log('to gerrit event', events.length);
+                console.log('to gerrit event');
                 events.forEach( (event) => {
                     if(event){
                         json = parseJson(event);

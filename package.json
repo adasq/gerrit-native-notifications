@@ -4,7 +4,7 @@
   "main": "main.js",
   "description": "See gerrit notifications on your OS",
   "scripts": {
-    "start": "babel-node main.js",
+    "start": "./node_modules/babel-cli/bin/babel-node.js main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Adam Płócieniak",
@@ -15,11 +15,11 @@
     "open": "0.0.5",
     "parse-json": "^2.2.0",
     "through2": "^2.0.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "babel-cli": "",
+    "ssh2": "^0.5.0"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-register": "^6.9.0",
-    "ssh2": "^0.5.0"
+    "babel-register": "^6.9.0"
   }
 }
