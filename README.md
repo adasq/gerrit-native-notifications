@@ -20,6 +20,8 @@ and displays it as OS native notifiaction, using
 ## Installation
 
 ```
+$ git clone git@github.com:adasq/gerrit-native-notifications.git
+$ cd gerrit-native-notifications
 $ npm install
 ```
 
