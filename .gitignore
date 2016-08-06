@@ -2,5 +2,5 @@ config/config.js
 node_modules
 stream
 npm-debug.log
-test.js
+test2.js
 .DS_Store
