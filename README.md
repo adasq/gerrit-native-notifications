@@ -2,6 +2,8 @@
 
 It lets you see gerrit events as a native OS notifications.
 
+![Example of OS X notifcation](https://raw.githubusercontent.com/adasq/gerrit-native-notifications/master/docs/images/%20notification-example-1.png "Example of OS X notifcation")
+
 ## How it works?
 
 **gerrit-native-notifications** subscribes for 
