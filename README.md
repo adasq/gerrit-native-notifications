@@ -68,3 +68,9 @@ $ npm start
 ```
 $ ssh -p 29418 your-username@gerrit-host gerrit stream-events
 ```
+
+## See how test gerrit event is displayed on your screen
+
+```
+$ npm test
+```
