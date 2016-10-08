@@ -6,11 +6,11 @@ It lets you see gerrit events as a native OS notifications.
 
 ## How it works?
 
-**gerrit-native-notifications** subscribes for 
-[gerrit events](https://gerrit-review.googlesource.com/Documentation/cmd-stream-events.html) 
-stream via SSH 
-([ssh2](https://github.com/mscdex/ssh2)) 
-and displays it as OS native notifiaction, using 
+**gerrit-native-notifications** subscribes for
+[gerrit events](https://gerrit-review.googlesource.com/Documentation/cmd-stream-events.html)
+stream via SSH
+([ssh2](https://github.com/mscdex/ssh2))
+and displays it as OS native notifiaction, using
 [node-notifier](https://github.com/mikaelbr/node-notifier/).
 
 ## Requirements
@@ -20,7 +20,7 @@ and displays it as OS native notifiaction, using
 ## Installation
 
 ```
-$ git clone git@github.com:adasq/gerrit-native-notifications.git
+$ git clone https://github.com/adasq/gerrit-native-notifications.git
 $ cd gerrit-native-notifications
 $ npm install
 ```
@@ -49,7 +49,7 @@ Consider following entry:
 
 ```
 
-We have notification description for `patchset-created` action. 
+We have notification description for `patchset-created` action.
 Using `text` we are able to format our notification text. It's simple function, which uses Dependency Injection to pass event related properties for futher formatting. Here we have `change` and `patchSet` which are `patchset-created` event specific fields, but you can pass more fields here. For full parameter list see ['patchset created' event documentation](https://gerrit-review.googlesource.com/Documentation/cmd-stream-events.html#_patchset_created)
 
 - `ignore.js` lets you decide, which events are important for you and will be displayed. The file contains list of functions. When we receive event, we will call each function. If any returns `true`, the passed event will be ignored and will not be displayed as notification. Consider function:
