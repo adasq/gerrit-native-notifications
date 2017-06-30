@@ -3,10 +3,10 @@ const helpers = require('../src/helpers.js');
 module.exports =  {
     'patchset-created': {
         onClick,
-        text: (change, patchSet) => `
+        text: (change, patchSet, uploader) => `
             ${change.subject}
             New patchSet ${patchSet.number}
-            ${patchSet.author.name} - ${change.branch}
+            ${uploader.name} - ${change.branch}
         `
     },
     'change-merged': {
