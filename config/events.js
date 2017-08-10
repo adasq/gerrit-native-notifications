@@ -1,8 +1,10 @@
 const helpers = require('../src/helpers.js');
+const config = require('./config.js');
 
 module.exports =  {
     'patchset-created': {
-        onClick,
+        getUrl,
+        getAuthorIcon,
         text: (change, patchSet, uploader) => `
             ${change.subject}
             New patchSet ${patchSet.number}
@@ -10,7 +12,8 @@ module.exports =  {
         `
     },
     'change-merged': {
-        onClick,
+        getUrl,
+        getAuthorIcon,
         text: (submitter, change) => `
             ${change.subject}
             Change merged
@@ -18,7 +21,8 @@ module.exports =  {
         `
     },
     'comment-added': {
-        onClick: onClickCommentAdded,
+        getUrl: getUrlCommentAdded,
+        getAuthorIcon,
         text: (author, change, comment, patchSet) => `
             ${change.subject}
             ${helpers.parseComment(comment)}
@@ -26,7 +30,8 @@ module.exports =  {
         `
     },
     'reviewer-added': {
-        onClick,
+        getUrl,
+        getAuthorIcon,
         text: (change) => `
             ${change.subject}
             You have been added as reviewer
@@ -35,11 +40,17 @@ module.exports =  {
     }
 };
 
-function onClick(change){
+function getUrl(change){
   return change.url;  
 }
 
-function onClickCommentAdded(comment, change){
+function getAuthorIcon(author, submitter, uploader, patchSet) {
+    const authorObj = author || submitter || uploader || (patchSet && patchSet.uploader);
+    const iconFileName = authorObj && config.icon[authorObj.email];
+    return iconFileName || null;
+}
+
+function getUrlCommentAdded(comment, change){
     let failedBuildJenkinsUrl = helpers.generateFailedBuildJenkinsUrl(comment);
     return failedBuildJenkinsUrl || change.url;
 }

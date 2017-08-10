@@ -2,21 +2,16 @@ const through2 = require('through2');
 const eventTypes = require('../../config/events');
 const di = require('../di');
 const _ = require('underscore');
-const notifier = require('node-notifier');
+let notifier = require('node-notifier');
 const open = require('open');
 const path = require('path');
  
-const ICON_FILENAME = 'smile.png';
+const DEFAULT_ICON_FILENAME = 'smile.png';
 
-notifier.on('click', function (notifierObject, options) {
-    if(options.url){
-        open(options.url);
-    }
-});
+notifier = new notifier.NotificationCenter();
 
 module.exports = function(){
     return through2.obj(function(event, enc, cb){
-        console.log('to-native-event', new Date(1000 * event.eventCreatedOn), event.type);
         const nativeNotification = getNotificationObjectByEvent(event);
         if(nativeNotification){
             notifier.notify(nativeNotification);
@@ -39,7 +34,8 @@ function getNotificationObjectByEvent(event){
     }
 
     let text = di.inject(eventActivityDescription.text, event)();
-    let url = di.inject(eventActivityDescription.onClick, event)();
+    let url = di.inject(eventActivityDescription.getUrl, event)();
+    let authorIcon = eventActivityDescription.getAuthorIcon && di.inject(eventActivityDescription.getAuthorIcon, event)();
 
     let rows = _.compact(text.split('\n').map((row) => row.trim()));
 
@@ -47,12 +43,21 @@ function getNotificationObjectByEvent(event){
     let subtitle = rows[1];
     let message = rows.splice(2).join('\n');
 
+    // {
+    //     url,
+    //     title,
+    //     subtitle,
+    //     message,
+    //     icon: path.join(__dirname, '../../images/', DEFAULT_ICON_FILENAME),
+    //     wait: false
+    // }
     return {
-        url,
         title,
         subtitle,
         message,
-        icon: path.join(__dirname, '../../images/', ICON_FILENAME),
-        wait: false
+        icon: path.join(__dirname, '../../images/', authorIcon || DEFAULT_ICON_FILENAME),
+        open: url,
+        actions: 'Open',
+        closeLabel: 'Close',
     };
 }
