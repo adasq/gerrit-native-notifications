@@ -53,6 +53,6 @@ function getNotificationObjectByEvent(event){
         subtitle,
         message,
         icon: path.join(__dirname, '../../images/', ICON_FILENAME),
-        wait: true
+        wait: false
     };
 }

@@ -10,7 +10,7 @@
   "author": "Adam Płócieniak",
   "license": "ISC",
   "dependencies": {
-    "node-notifier": "^4.6.0",
+    "node-notifier": "5.1.2",
     "open": "0.0.5",
     "parse-json": "^2.2.0",
     "through2": "^2.0.1",
