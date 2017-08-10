@@ -13,6 +13,9 @@ module.exports = {
         'team.member2@google.com',
         'team.member3@google.com'
     ], //your team member's gerrit email list
+    icon: {
+        'team.member1@google.com': 'crying.png'
+    }, //'email' to 'image file name' path map
     privateKey: '/Users/me/.ssh/id_rsa', //path to your privateKey (required by SSH to set connection)
     projects: [
         'project name'
