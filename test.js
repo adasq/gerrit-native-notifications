@@ -2,6 +2,7 @@
 const TO_GERRIT_EVENT = require('./src/streams/to-gerrit-event')();
 const IGNORE_GERRIT_EVENT = require('./src/streams/ignore-gerrit-event')();
 const TO_NATIVE_NOTIFICATION = require('./src/streams/to-native-notification')();
+const REGISTER_REVIEWER_ADDED = require('./src/streams/register-reviewer-added')();
 
 const Readable = require('stream').Readable;
 const GERRIT_STREAM = Readable();
@@ -70,6 +71,7 @@ simulateSSHStream(JSON.stringify(eventObj));
 function initialize(){
   GERRIT_STREAM
   .pipe(TO_GERRIT_EVENT, { end: false })
+  .pipe(REGISTER_REVIEWER_ADDED, { end: false })
   .pipe(TO_NATIVE_NOTIFICATION, { end: false });
 }
 

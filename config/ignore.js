@@ -1,6 +1,6 @@
 const h = require('../src/helpers.js');
 
-//ignore activity, when...
+//ignore event, when...
 module.exports = [
      (event) => (event.type === 'change-abandoned'),
 
@@ -8,7 +8,7 @@ module.exports = [
 
      (event) => (event.type === 'change-restored'),
 
-     (event) => (event.type === 'comment-added' && h.isNotTeamMember(event.change.owner)), //when comment added to change, which is not owned by team member
+     (event) => (event.type === 'comment-added' && h.isNotTeamMember(event.change.owner) && h.isChangeNotTracked(event.change)), //when comment added to change, which is not owned by team member
      (event) => (event.type === 'comment-added' && h.isGerritAdmin(event.author) && !event.approvals), //when gerrit admin add comments w/o approvals
 
      (event) => (event.type === 'draft-published'),
@@ -17,7 +17,7 @@ module.exports = [
      (event) => (event.type === 'project-created'),
      (event) => (event.type === 'merge-failed'),
 
-     (event) => (event.type === 'patchset-created' && h.isNotTeamMember(event.uploader) ),
+     (event) => (event.type === 'patchset-created' && h.isNotTeamMember(event.uploader) && h.isChangeNotTracked(event.change)),
 
      (event) => (event.type === 'ref-updated'),
      

@@ -2,7 +2,19 @@ const config = require('../config/config');
 const _ = require('underscore');
 
 const JENKINS_FAILED_BUILD_REGEXP = config.jenkins+'(.+)\\s:\\sFAILURE';
+const trackedChanges = {};
 
+function isChangeTracked(change) {
+    return trackedChanges[change.id] === true;
+}
+
+function isChangeNotTracked(change) {
+    return !isChangeTracked(change);
+}
+
+function trackChange(change) {
+    trackedChanges[change.id] = true;
+}
 
 function isTeamMember(account){
     return config.team.indexOf(account.email) > -1;
@@ -61,6 +73,10 @@ function generateFailedBuildJenkinsUrl(comment){
 }
 
 module.exports = {
+    isChangeTracked,
+    isChangeNotTracked,
+    trackChange,
+
     isTeamMember,
     isNotTeamMember,
     isGerritAdmin,
