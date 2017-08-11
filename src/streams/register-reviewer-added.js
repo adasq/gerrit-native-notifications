@@ -9,6 +9,7 @@ function iAmAddedAsReviewer(event) {
 module.exports = function(){
     return through2.obj(function(event, enc, cb){
     	if (iAmAddedAsReviewer(event)) {
+    		console.log('tracking now', event.change.id)
     		helpers.trackChange(event.change);
     	}
     	cb(false, event);    		
