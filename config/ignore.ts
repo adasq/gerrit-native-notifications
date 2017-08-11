@@ -1,7 +1,7 @@
-const h = require('../src/helpers.js');
+import * as h from '../src/helpers';
 
 //ignore event, when...
-module.exports = [
+export const ignoreList = [
      (event) => (event.type === 'change-abandoned'),
 
      (event) => (event.type === 'change-merged' && h.isNotTeamMember(event.submitter)),

@@ -3,8 +3,7 @@ var FN_ARG_SPLIT = /,/;
 var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 
-var di = {
-    annotate: function annotate(fn){
+    export function annotate(fn){
         var $inject
         if (!($inject = fn.$inject)) {
             $inject = [];
@@ -19,8 +18,9 @@ var di = {
         }
 
         return fn.$inject;
-    },
-    inject: function(fn, obj){
+    };
+
+    export function inject(fn, obj): Function{
         var args = [];
         
         if(!fn.$inject){
@@ -38,8 +38,3 @@ var di = {
             return fn.apply(context || null, args);
         }  
     }
-};
-
-
-
-module.exports = di;

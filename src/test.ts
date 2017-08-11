@@ -1,13 +1,10 @@
+import { TO_GERRIT_EVENT } from './streams/to-gerrit-event';
+import { REGISTER_REVIEWER_ADDED } from './streams/register-reviewer-added';
+import { TO_NATIVE_NOTIFICATION } from './streams/to-native-notification';
+import { Readable } from 'stream';
 
-const TO_GERRIT_EVENT = require('./src/streams/to-gerrit-event')();
-const IGNORE_GERRIT_EVENT = require('./src/streams/ignore-gerrit-event')();
-const TO_NATIVE_NOTIFICATION = require('./src/streams/to-native-notification')();
-const REGISTER_REVIEWER_ADDED = require('./src/streams/register-reviewer-added')();
-
-const Readable = require('stream').Readable;
-const GERRIT_STREAM = Readable();
+const GERRIT_STREAM = new Readable();
 GERRIT_STREAM._read = function () {};
-
 
 const eventObj = {
    "author":{  
@@ -122,9 +119,9 @@ simulateSSHStream(JSON.stringify(reviewerAdded));
 
 function initialize(){
   GERRIT_STREAM
-  .pipe(TO_GERRIT_EVENT, { end: false })
-  .pipe(REGISTER_REVIEWER_ADDED, { end: false })
-  .pipe(TO_NATIVE_NOTIFICATION, { end: false });
+  .pipe(TO_GERRIT_EVENT(), { end: false })
+  .pipe(REGISTER_REVIEWER_ADDED(), { end: false })
+  .pipe(TO_NATIVE_NOTIFICATION(), { end: false });
 }
 
 function simulateSSHStream(data){

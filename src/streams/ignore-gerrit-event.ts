@@ -1,13 +1,13 @@
-var through2 = require('through2');
-var ignore = require('../ignore');
+import * as through2 from 'through2';
+import { isIgnored } from '../ignore';
 
-module.exports = function(){
+export function IGNORE_GERRIT_EVENT() {
     return through2.obj(function(event, enc, cb){
     		console.log('ignore-gerrit-event');
-            if( ignore.isIgnored(event) ){
+            if ( isIgnored(event) ) {
             	console.log('the event has been ignored');
                 cb(false);
-            }else{
+            } else {
                 cb(false, event);
             }
     });

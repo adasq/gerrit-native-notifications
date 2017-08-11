@@ -1,6 +1,6 @@
-config/config.js
+config/config.ts
 node_modules
 stream
 npm-debug.log
-test2.js
 .DS_Store
+dist

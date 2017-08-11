@@ -1,10 +1,10 @@
-var config = require('../../config/config');
-var fs = require('fs');
-var Client = require('ssh2').Client;
+import { config } from '../../config/config';
+import * as fs from 'fs';
+import { Client } from 'ssh2';
+import * as stream from 'stream';
 
 //read stream:
-var Readable = require('stream').Readable;
-var rs = Readable();
+var rs = new stream.Readable();
 rs._read = function () {};
 function pushData(data){
   rs.push(data);
@@ -75,6 +75,8 @@ var conn, connectionConfig = {
     setTimeout(connect, config.reconnectionTimeout);
   }
 
-  initialize();
+initialize();
 
-module.exports = rs;
+export function GERRIT_STREAM() {
+  return rs;
+}

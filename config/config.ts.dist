@@ -1,4 +1,4 @@
-module.exports = {
+export const config = {
     keepaliveInterval: 1000, // SSH keepalive interval [ms]
     reconnectionTimeout: 5000, // Specify timeout, which will force app to reconnect over SSH [ms]
     jenkins: 'http://jenkins.yourdomain.com', //your jenkins URL (optional)

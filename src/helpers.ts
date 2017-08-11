@@ -1,50 +1,50 @@
-const config = require('../config/config');
-const _ = require('underscore');
+import { config } from '../config/config';
+import * as _ from 'underscore';
 
 const JENKINS_FAILED_BUILD_REGEXP = config.jenkins+'(.+)\\s:\\sFAILURE';
 const trackedChanges = {};
 
-function isChangeTracked(change) {
+export function isChangeTracked(change) {
     return trackedChanges[change.id] === true;
 }
 
-function isChangeNotTracked(change) {
+export function isChangeNotTracked(change) {
     return !isChangeTracked(change);
 }
 
-function trackChange(change) {
+export function trackChange(change) {
     trackedChanges[change.id] = true;
 }
 
-function isTeamMember(account){
+export function isTeamMember(account){
     return config.team.indexOf(account.email) > -1;
 }
 
-function isNotTeamMember(account){
+export function isNotTeamMember(account){
     return !isTeamMember(account);
 }
 
-function isGerritAdmin(account){
+export function isGerritAdmin(account){
     return account.name === 'Gerrit Admin';
 }
 
-function isProjectAllowed(change){
+export function isProjectAllowed(change){
     return config.projects.indexOf(change.project) > -1;
 }
 
-function isProjectNotAllowed(change){
+export function isProjectNotAllowed(change){
     return !isProjectAllowed(change);
 }
 
-function isMe(account){
+export function isMe(account){
     return account.email === config.me;
 }
 
-function isNotMe(account){
+export function isNotMe(account){
     return !isMe(account);
 }
 //----------------------------------
-function parseComment(comment){
+export function parseComment(comment) {
     comment = (comment || '');
     comment = comment.replace(/\n+/g, ' ');
     comment = comment.replace(/Patch Set \d+:/, '');
@@ -52,7 +52,7 @@ function parseComment(comment){
     return comment;
 }
 
-function formatApprovals(approvals){
+export function formatApprovals(approvals) {
     if(approvals){
         return approvals.map((approval) => {
             var value = (+approval.value > 0) ? ('+'+approval.value) : approval.value;
@@ -63,7 +63,7 @@ function formatApprovals(approvals){
     }
 }
 
-function generateFailedBuildJenkinsUrl(comment){
+export function generateFailedBuildJenkinsUrl(comment) {
     if(comment && config.jenkins){
         let result = comment.match(new RegExp(JENKINS_FAILED_BUILD_REGEXP));
         if(result && result[1]){
@@ -71,22 +71,3 @@ function generateFailedBuildJenkinsUrl(comment){
         }
     }
 }
-
-module.exports = {
-    isChangeTracked,
-    isChangeNotTracked,
-    trackChange,
-
-    isTeamMember,
-    isNotTeamMember,
-    isGerritAdmin,
-    isProjectAllowed,
-    isProjectNotAllowed,
-    isMe,
-    isNotMe,
-
-    parseComment,
-    formatApprovals,
-
-    generateFailedBuildJenkinsUrl
-};

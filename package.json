@@ -4,17 +4,19 @@
   "main": "main.js",
   "description": "See gerrit notifications on your OS",
   "scripts": {
-    "start": "node main.js",
-    "test": "node test.js"
+    "start": "./node_modules/.bin/tsc && node ./dist/src/main.js",
+    "test": "./node_modules/.bin/tsc && node ./dist/src/test.js"
   },
   "author": "Adam Płócieniak",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "8.0.20",
     "node-notifier": "5.1.2",
     "open": "0.0.5",
     "parse-json": "^2.2.0",
+    "ssh2": "^0.5.0",
     "through2": "^2.0.1",
-    "underscore": "^1.8.3",
-    "ssh2": "^0.5.0"
+    "typescript": "2.4.2",
+    "underscore": "^1.8.3"
   }
 }

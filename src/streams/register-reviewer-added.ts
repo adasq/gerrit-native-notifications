@@ -1,12 +1,11 @@
-var through2 = require('through2');
-var ignore = require('../ignore');
-var helpers = require('../helpers');
+import * as through2 from 'through2';
+import * as helpers from '../helpers';
 
 function iAmAddedAsReviewer(event) {
 	return event.type === 'reviewer-added' && helpers.isMe(event.reviewer);
 }
 
-module.exports = function(){
+export function REGISTER_REVIEWER_ADDED() {
     return through2.obj(function(event, enc, cb){
     	if (iAmAddedAsReviewer(event)) {
     		console.log('tracking now', event.change.id)

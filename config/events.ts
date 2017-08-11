@@ -1,7 +1,7 @@
-const helpers = require('../src/helpers.js');
-const config = require('./config.js');
+import * as helpers from '../src/helpers';
+import { config } from './config';
 
-module.exports =  {
+export const events = {
     'patchset-created': {
         getUrl,
         getAuthorIcon,
@@ -36,7 +36,7 @@ module.exports =  {
             ${change.subject}
             You have been added as reviewer
             ${change.branch}
-        `        
+        `
     }
 };
 
