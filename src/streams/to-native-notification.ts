@@ -7,24 +7,22 @@ import * as open from 'open';
 import * as path from 'path';
 import * as os from 'os';
 
-
-
 const platform = os.platform();
 
 const DEFAULT_ICON_FILENAME = 'smile.png';
 const DEFAULT_ICON_PATH = path.join(__dirname, '../../../images/', DEFAULT_ICON_FILENAME);
 
 export function TO_NATIVE_NOTIFICATION() {
-    return through2.obj(function(event, enc, cb){
+    return through2.obj(function (event, enc, cb) {
         const nativeNotification = getNotificationObjectByEvent(event);
-        if(nativeNotification){
-            if(platform === 'darwin') {
+        if (nativeNotification) {
+            if (platform === 'darwin') {
                 showNotificationOnOSX(nativeNotification);
             } else {
                 showNotification(nativeNotification);
             }
             cb(false, JSON.stringify(event) + '\n');
-        }else{
+        } else {
             cb(false);
         }
     });
@@ -55,14 +53,14 @@ function showNotification(eventDescription) {
     });
 }
 
-function getEventDescription(event){
-    return events[ event.type ];
+function getEventDescription(event) {
+    return events[event.type];
 }
 
-function getNotificationObjectByEvent(event){
+function getNotificationObjectByEvent(event) {
     let eventActivityDescription = getEventDescription(event);
 
-    if(!eventActivityDescription){
+    if (!eventActivityDescription) {
         return null;
     }
 

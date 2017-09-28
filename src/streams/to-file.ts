@@ -5,5 +5,5 @@ import * as path from 'path';
 const PATH = path.join(__dirname, '../../../stream');
 
 export function TO_FILE() {
-    return fs.createWriteStream(PATH, {flags: 'a'});
+    return fs.createWriteStream(PATH, { flags: 'a' });
 };
