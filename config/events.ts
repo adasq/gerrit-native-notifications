@@ -40,8 +40,8 @@ export const events = {
     }
 };
 
-function getUrl(change){
-  return change.url;  
+function getUrl(change) {
+    return change.url;
 }
 
 function getAuthorIcon(author, submitter, uploader, patchSet) {
@@ -50,7 +50,7 @@ function getAuthorIcon(author, submitter, uploader, patchSet) {
     return iconFileName || null;
 }
 
-function getUrlCommentAdded(comment, change){
+function getUrlCommentAdded(comment, change) {
     let failedBuildJenkinsUrl = helpers.generateFailedBuildJenkinsUrl(comment);
     return failedBuildJenkinsUrl || change.url;
 }
