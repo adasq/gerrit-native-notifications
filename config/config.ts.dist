@@ -6,6 +6,7 @@ export const config = {
         host: 'gerrit.yourdomain.com',
         username: 'your.gerrit.username',
         port: 29418
+        // passphrase: '****'; optional additional key to include if private key is encrypted
     }, //gerrit server configuration
     me: 'your.name@google.com', //your gerrit email
     team: [
