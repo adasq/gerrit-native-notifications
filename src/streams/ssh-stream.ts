@@ -27,6 +27,7 @@ const connectionConfig = {
   port,
   username,
   privateKey: fs.readFileSync(config.privateKey),
+  passphrase: 'passphrase' in config.gerrit? config.gerrit['passphrase']: null,
   keepaliveInterval: config.keepaliveInterval || 1000
 };
 
