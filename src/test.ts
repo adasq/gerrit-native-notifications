@@ -62,57 +62,8 @@ const eventObj = {
    "eventCreatedOn":1470051339
 };
 
-
-const reviewerAdded = {
-   "reviewer":{  
-      "name":"Adam Płócieniak",
-      "email":"adam.plocieniak@pearson.com",
-      "username":"adamplocieniak"
-   },
-   "patchSet":{  
-      "number":"7",
-      "revision":"bdb1a3750edf80263b4b5816850f283f856db038",
-      "parents":[  
-         "691e07c32e3087111fc550636cf3d18bdd3e3b71"
-      ],
-      "ref":"refs/changes/36/59836/7",
-      "uploader":{  
-         "name":"Krzysztof Jankowski",
-         "email":"krzysztof.jankowski@pearson.com",
-         "username":"krzysztofjankowski"
-      },
-      "createdOn":1499782915,
-      "author":{  
-         "name":"Krzysztof Jankowski",
-         "email":"krzysztof.jankowski@pearson.com",
-         "username":"krzysztofjankowski"
-      },
-      "isDraft":false,
-      "kind":"REWORK",
-      "sizeInsertions":37,
-      "sizeDeletions":-136
-   },
-   "change":{  
-      "project":"newngmel",
-      "branch":"develop",
-      "id":"I72a97ca645b865338eaab8b0e81eb7f4667764b1",
-      "number":"59836",
-      "subject":"ELTCD-9520 Extend support for multiple model answers",
-      "owner":{  
-         "name":"Krzysztof Jankowski",
-         "email":"krzysztof.jankowski@pearson.com",
-         "username":"krzysztofjankowski"
-      },
-      "url":"http://gerrit.ioki.com.pl/59836",
-      "commitMessage":"ELTCD-9520 Extend support for multiple model answers\n\nChange-Id: I72a97ca645b865338eaab8b0e81eb7f4667764b1\n",
-      "status":"NEW"
-   },
-   "type":"reviewer-added",
-   "eventCreatedOn":1499847345
-}
-
 initialize();
-simulateSSHStream(JSON.stringify(reviewerAdded));
+simulateSSHStream(JSON.stringify(eventObj));
 // setTimeout(() => {
 //   simulateSSHStream(JSON.stringify(eventObj));
 // }, 200)
