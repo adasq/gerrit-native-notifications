@@ -44,8 +44,8 @@ function showNotificationOnOSX(notificationObject: NotificationObject) {
     });
 }
 
-function showNotification(motificationObject: NotificationObject) {
-    const { title, subtitle, message, url, authorIconPath } = motificationObject;
+function showNotification(notificationObject: NotificationObject) {
+    const { title, subtitle, message, url, authorIconPath } = notificationObject;
     notifier.notify({
         url,
         title,
