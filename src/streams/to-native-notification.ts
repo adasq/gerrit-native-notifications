@@ -19,7 +19,7 @@ export function TO_NATIVE_NOTIFICATION(platform: string) {
         if(!notificationObject) { return cb(false); }
 
         showNotificationOnPlatform(notificationObject, platform);
-        cb(false, JSON.stringify(event) + '\n');
+        cb(false, JSON.stringify(notificationObject) + '\n');
     });
 };
 
