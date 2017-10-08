@@ -15,11 +15,13 @@ const DEFAULT_ICON_PATH = path.join(__dirname, '../../../images/', DEFAULT_ICON_
 
 export function TO_NATIVE_NOTIFICATION(platform: string) {
     return through2.obj(function (notificationObject: NotificationObject, enc, cb) {
+        
+        if(notificationObject) { 
+            showNotificationOnPlatform(notificationObject, platform);
+            this.push(JSON.stringify(notificationObject) + '\n');
+        }
 
-        if(!notificationObject) { return cb(false); }
-
-        showNotificationOnPlatform(notificationObject, platform);
-        cb(false, JSON.stringify(notificationObject) + '\n');
+        cb(false);
     });
 };
 

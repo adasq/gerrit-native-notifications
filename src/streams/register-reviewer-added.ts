@@ -8,7 +8,7 @@ function iAmAddedAsReviewer(event) {
 export function REGISTER_REVIEWER_ADDED() {
 	return through2.obj((event, enc, cb) => {
 		if (iAmAddedAsReviewer(event)) {
-			console.log('tracking now', event.change.id)
+			console.log('tracking now', event.change.id);
 			helpers.trackChange(event.change);
 		}
 		cb(false, event);

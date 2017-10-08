@@ -12,10 +12,12 @@ import { NotificationObject } from '../interfaces/notification-object';
 export function TO_NOTIFICATION_OBJECT() {
     return through2.obj(function (event: GerritEvent, enc, cb) {
         const notificationObject: NotificationObject = getNotificationObjectByGerritEvent(event);
+        
+        if(notificationObject) {
+            this.push(notificationObject);
+        }
 
-        if(!notificationObject) { return cb(false); }
-
-        return cb(false, notificationObject);
+        cb(false);
     });
 };
 
