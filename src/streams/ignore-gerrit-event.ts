@@ -9,12 +9,13 @@ export function IGNORE_GERRIT_EVENT() {
 
         const ignoredFn = _.find(ignoreList, fn => fn(event));
         const isIgnored = !!ignoredFn;
+
         if (isIgnored) {
-            console.log('the event has been ignored by function:');
-            console.log(ignoredFn.toString())
-            cb(false);
+            console.log('the event has been ignored by function: ', ignoredFn.toString());
         } else {
-            cb(false, event);
+            this.push(event);
         }
+
+        cb(false);
     });
 };
