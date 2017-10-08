@@ -4,8 +4,8 @@ import * as _ from 'underscore';
 import { GerritEvent } from '../interfaces/gerrit-event';
 
 export function IGNORE_GERRIT_EVENT() {
-    return through2.obj((event: GerritEvent, enc, cb) => {
-        console.log('ignore-gerrit-event');
+    return through2.obj(function (event: GerritEvent, enc, cb) {
+        console.log('ignore-gerrit-event', event);
 
         const ignoredFn = _.find(ignoreList, fn => fn(event));
         const isIgnored = !!ignoredFn;
