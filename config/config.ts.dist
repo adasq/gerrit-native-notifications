@@ -2,6 +2,15 @@ export const config = {
     keepaliveInterval: 1000, // SSH keepalive interval [ms]
     reconnectionTimeout: 5000, // Specify timeout, which will force app to reconnect over SSH [ms]
     jenkins: 'http://jenkins.yourdomain.com', //your jenkins URL (optional)
+    jira: { // your jira config (optional)
+        host: 'jira.yourdomain.com',
+        username: 'your.jira.username',
+        password: 'your.jira.password',
+        usernames: { // mapping between gerrit email to jira username
+            'your.name@google.com': 'your.jira.username',
+            'team.member1@google.com': 'team.member1.jira.username'
+        }
+    },
     gerrit: {
         host: 'gerrit.yourdomain.com',
         username: 'your.gerrit.username',
