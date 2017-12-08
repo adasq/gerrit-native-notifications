@@ -1,5 +1,6 @@
 import * as helpers from '../src/helpers';
 import { config } from './config';
+import { avatars } from '../src/jira/jira';
 
 export const events = {
     'patchset-created': {
@@ -46,7 +47,7 @@ function getUrl(change) {
 
 function getAuthorIcon(author, submitter, uploader, patchSet) {
     const authorObj = author || submitter || uploader || (patchSet && patchSet.uploader);
-    const iconFileName = authorObj && config.icon[authorObj.email];
+    const iconFileName = authorObj && (avatars[authorObj.email] || config.icon[authorObj.email]);
     return iconFileName || null;
 }
 

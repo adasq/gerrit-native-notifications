@@ -4,3 +4,5 @@ stream
 npm-debug.log
 .DS_Store
 dist
+images/*avatar
+.idea
