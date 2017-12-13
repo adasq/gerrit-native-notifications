@@ -22,7 +22,11 @@ class Jira {
     constructor(config: Config) {
         this.config = config;
         let host = config.host;
-        this.config.host = host[host.length - 1] == '/' ? host : host + '/';
+        this.config.host = host[host.length - 1] === '/' ? host : host + '/';
+    }
+
+    printError(user: string, e: Error) {
+        console.error("Unable to download avatar for user %s", user, e);
     }
 
     downloadAvatars(user: string, email: string) {
@@ -37,22 +41,34 @@ class Jira {
             }
         };
 
-        request(options, (error, response, body) => {
-            if (!error) {
-                let result = JSON.parse(body);
-                for (let avatarType of Jira.AVATAR_TYPES) {
-                    let isSelected = result[avatarType].filter(avatar => avatar.isSelected == true);
-                    if (isSelected.length != 0) {
-                        let imageURL = isSelected[0].urls[Jira.AVATAR_SIZE];
-                        let imageFileName = user + '_avatar';
-                        let imagePath = 'images/' + imageFileName + '.png';
+        request(options, (err, resp, body) => {
+            if (err) {
+                this.printError(user, err);
+                return;
+            }
 
-                        let imageURLOptions = options;
-                        imageURLOptions.url = imageURL;
-                        request(imageURLOptions).pipe(fs.createWriteStream(imagePath))
-                            .on('close', () => console.log("Downloaded avatar for " + this.config.username));
-                        avatars[email] = imageFileName + '.png';
-                    }
+            let result;
+
+            try {
+                result = JSON.parse(body);
+            } catch (e) {
+                this.printError(user, e);
+                return;
+            }
+
+            for (let avatarType of Jira.AVATAR_TYPES) {
+                let isSelected = result[avatarType].filter(avatar => avatar.isSelected === true);
+                if (isSelected.length !== 0) {
+                    let imageURL = isSelected[0].urls[Jira.AVATAR_SIZE];
+                    let imageFileName = user + '_avatar';
+                    let imagePath = 'images/' + imageFileName;
+
+                    let imageURLOptions = options;
+                    imageURLOptions.url = imageURL;
+                    request(imageURLOptions).pipe(fs.createWriteStream(imagePath))
+                        .on('close', () => console.log("Downloaded avatar for " + user));
+                    avatars[email] = imageFileName;
+                    break;
                 }
             }
         });
