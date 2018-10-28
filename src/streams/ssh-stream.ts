@@ -26,9 +26,10 @@ const connectionConfig = {
     host,
     port,
     username,
-    privateKey: fs.readFileSync(config.privateKey),
-    passphrase: 'passphrase' in config.gerrit ? config.gerrit['passphrase'] : null,
-    keepaliveInterval: config.keepaliveInterval || 1000
+    privateKey: config.ssh.useAgent? null: fs.readFileSync((config.ssh as any).privateKey),
+    passphrase: 'passphrase' in config.ssh ? config.ssh['passphrase'] : null,
+    keepaliveInterval: config.keepaliveInterval || 1000,
+    agent: config.ssh.useAgent? process.env.SSH_AUTH_SOCK: null
 };
 
 function initialize() {

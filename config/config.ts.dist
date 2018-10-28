@@ -15,7 +15,6 @@ export const config = {
         host: 'gerrit.yourdomain.com',
         username: 'your.gerrit.username',
         port: 29418
-        // passphrase: '****'; optional additional key to include if private key is encrypted
     }, //gerrit server configuration
     me: 'your.name@google.com', //your gerrit email
     team: [
@@ -26,7 +25,11 @@ export const config = {
     icon: {
         'team.member1@google.com': 'crying.png'
     }, //'email' to 'image file name' path map
-    privateKey: '/Users/me/.ssh/id_rsa', //path to your privateKey (required by SSH to set connection)
+    ssh: {
+        useAgent: true, // set this to false if providing privateKey and/or passphrase
+        // privateKey: '/Users/me/.ssh/id_rsa' // path to your privateKey (required by SSH to set connection)
+        // passphrase: '****' // optional additional key to include if private key is encrypted
+    }
     projects: [
         'project name'
     ]
