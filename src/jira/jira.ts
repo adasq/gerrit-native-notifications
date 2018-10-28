@@ -83,4 +83,4 @@ class Jira {
     }
 }
 
-export const avatars = new Jira(config.jira).getAvatars();
+export const avatars = "jira" in config ? new Jira((config as any).jira).getAvatars() : [];
