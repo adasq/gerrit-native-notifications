@@ -64,6 +64,15 @@ Whenever we receive event, with type `ref-updated`, we will ignore it.
 $ npm start
 ```
 
+## Run with docker
+
+```bash
+docker build -t <image> .
+docker run --rm -it -v ~/.ssh:/root/.ssh:ro -v /gerrit-native-notifications/stream:/gerrit-native-notifications/stream <image>
+```
+
+The matched gerrit events will be available in the ```stream``` file. By containerizing gerrit-native-notifications, complex pipelines can be created with multiple streams as the source.
+
 ## Test your gerrit events stream via CLI
 ```
 $ ssh -p 29418 your-username@gerrit-host gerrit stream-events
